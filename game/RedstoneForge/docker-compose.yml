@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  mc_server:
+    build:
+      context: ./Server
+    environment:
+      EULA: "true"
+    ports:
+      - "25565:25565"
+    restart: on-failure
+
+  mc_client:
+    build:
+      context: ./Client
+    ulimits:
+      nofile:
+        hard: 65536
+        soft: 65536
+    environment:
+      - CLIENT_IP=retos.hackiit.org
+    restart: on-failure

@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+
+import socket
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect(("127.0.0.1", 31423))
+
+s.send(b"\x04\x04\x00PING\n")
+print("[+] " + s.recv(100).decode().strip())
+s.send(b"\x04\x04\x00WRITE\x000\x001\n")
+s.recv(100)
+s.send(b"\x04\x04\x00WRITE\x001\x001\n")
+s.recv(100)
+s.send(b"\x04\x04\x00WRITE\x002\x001\n")
+s.recv(100)
+s.send(b"\x04\x04\x00WRITE\x003\x001\n")
+s.recv(100)
+s.send(b"\x04\x04\x00WRITE\x004\x001\n")
+s.recv(100)
+s.send(b"\x04\x04\x00WRITE\x005\x001\n")
+s.recv(100)
+s.send(b"\x04\x04\x00WRITE\x006\x001\n")
+s.recv(100)
+s.send(b"\x04\x04\x00WRITE\x007\x001\n")
+s.recv(100)
+s.send(b"\x04\x04\x00WRITE\x008\x001\n")
+s.recv(100)
+s.send(b"\x04\x04\x00WRITE\x009\x001\n")
+s.recv(100)
+s.send(b"\x04\x04\x00GETFLAG\n")
+print("[+] " + s.recv(100).decode().strip())

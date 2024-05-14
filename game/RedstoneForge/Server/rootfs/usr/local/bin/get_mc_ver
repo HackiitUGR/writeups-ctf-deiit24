@@ -1,0 +1,24 @@
+#!/bin/bash
+  
+  # build it if it not exists
+  if [ ! -f $SPIGOT_HOME/spigot-$SPIGOT_VER.jar ]; then
+    echo "Copying plugins and config files"
+    cp -r /config/* $SPIGOT_HOME/
+    unzip /config/lobby.zip -d $SPIGOT_HOME/world
+    rm $SPIGOT_HOME/lobby.zip
+
+    chown minecraft:minecraft $SPIGOT_HOME/server.properties
+    chown minecraft:minecraft $SPIGOT_HOME/*.yml
+    chown -R minecraft:minecraft $SPIGOT_HOME/plugins
+    chown -R minecraft:minecraft $SPIGOT_HOME/world
+
+    ln -s $SPIGOT_HOME/spigot-$SPIGOT_VER.jar $SPIGOT_HOME/spigot.jar
+  fi
+
+  if [ -f $SPIGOT_HOME/spigot-$SPIGOT_VER.jar ]; then
+    echo "Successfull build of spigot version $SPIGOT_VER"	  
+  else
+    mc_ver=$(ls -l /$SPIGOT_HOME/spigot.jar | grep -Po '(?<=spigot-)\d.\d*')
+    echo "BUILD FAILED: spigot version $SPIGOT_VER failed (continue running version $mc_ver) "
+    exit 1
+  fi

@@ -1,0 +1,132 @@
+#!/bin/sh
+### END INIT INFO
+#
+# startscript for spigot minecraft server
+#
+# (c) 2015-2021nimmis <kjell.havneskold@gmail.com>
+#
+
+# fetch global variables when starting from supervisord
+
+. /etc/container_environment.sh
+
+
+MC_USER=minecraft       # User name running the minecraft server
+MC_PROC=bot.jar   # name of minecraft jar file
+MC_DIR=/home/minecraft # Directory where the server should run
+
+if [ -z "$MC_MAXMEM" ]; then
+  MC_MAXMEM="1G"
+fi
+
+if [ -z  "$MC_MINMEM" ]; then
+  MC_MINMEM=$MC_MAXMEM ;
+fi
+
+# Add $OTHER_JAVA_OPS to let the user determine what options they need
+
+JAVACMD=$(which java)
+
+USAGE=$(cat <<EOF
+Usage:  $0 <option>
+
+Options:
+
+  start
+    Start the Minecraft client.
+
+EOF
+)
+
+#
+# get the PID for minecraft server pocess
+#
+
+getPID() {
+  local PID
+  PID=$( ps -f -u $MC_USER | grep "$MC_PROC" | grep "/java " | grep -v "sh -c" |  grep -v grep | awk '{print $2}' )
+  printf "%d\n" $PID
+}
+
+#
+# return 1 if the minecraft server is running othervise 0
+#
+
+isRunning() {
+  if [  $(getPID) -eq 0 ] ; then
+	echo 0
+  else
+	echo 1
+  fi
+}
+
+# execute command as minecraft user
+
+execCMD() {
+	# if running as root, switch to defined user
+
+	if [ $(id -u) -eq 0 ]; then
+		su -s /bin/sh -c "$1" $MC_USER $2
+	else
+		sh -c "$1" $2
+	fi
+}
+
+# 
+# check that all is ok the start server
+#
+
+checkOK() {
+
+  # check that the directory exists
+
+  if [ ! -d $MC_DIR ] ; then
+	echo "$MC_DIR does not exist" ;
+	exit 1
+  fi
+
+  # and there are a jar file in it
+
+  if [ ! -f $MC_DIR/$MC_PROC ] ; then
+	echo "the minecraft file $MC_DIR/$MC_PROC does not exist."
+	exit 1
+  fi 
+
+}
+
+
+#
+# start the minecraft server
+#
+
+start() {
+   echo -n "Starting minecraft client as user $MC_USER..."
+
+   checkOK 
+
+   # be in right working directory when starting 
+   cd $MC_DIR
+
+   execCMD "tail -f --pid=\$$ $MC_DIR/input.con | { $JAVACMD -jar $MC_DIR/$MC_PROC -h $CLIENT_IP -p $CLIENT_PORT -u $CLIENT_USERNAME -a  2>&1 ; kill \$$ ; } "    
+
+}
+
+case "$1" in
+
+  start)
+    if [ $(isRunning) -eq 1 ] ; then
+
+	echo -n "$MC_PROC is already running with PID "
+        getPID
+	exit 1
+
+    fi
+    start
+  ;;
+
+  *)
+    printf "$USAGE\n"
+    exit 1
+  ;;
+
+esac

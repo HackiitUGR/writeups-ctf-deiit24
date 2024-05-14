@@ -1,0 +1,65 @@
+version: '3'
+
+services:
+
+  # ----------------------------- Game Challenges ------------------------------
+
+  # RedstoneForge (Minecraft server and client)
+  # Total:  845MB
+  mc-server:
+    extends:
+      file: ./game/RedstoneForge/docker-compose.yml
+      service: mc_server
+    restart: unless-stopped
+    ports:
+      - 25565:25565
+
+  # Sugerencia: (330MB) por probar...
+  #mc-server:
+  #  image: itzg/minecraft-server
+  #  restart: unless-stopped
+  #  enviroment:
+  #    - EULUA:TRUE
+  #  volumes:
+  #    - ./game/RedstoneForge/Server/config:/data
+
+  mc-client:
+    extends:
+      file: ./game/RedstoneForge/docker-compose.yml
+      service: mc_client
+    restart: unless-stopped
+    depends_on:
+      - mc-server
+
+  # ------------------------------ Rev Challenges ------------------------------
+  
+  # clientside
+  clientside:
+    build: ./rev/clientside
+    restart: unless-stopped
+    ports:
+      - "31423:31423"
+
+  # ------------------------------ Web Challenges ------------------------------
+  
+  # nosql
+  nosql:
+    build:
+      context: ./web/nosql
+    restart: unless-stopped
+    ports:
+      - 31420:6002
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:31420/"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+
+  easy-token:
+    build: ./web/easy-token
+    restart: unless-stopped
+    ports:
+      - 5000:5000
+
+
+ 

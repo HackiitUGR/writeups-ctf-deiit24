@@ -1,0 +1,108 @@
+command-block-overrides: []
+aliases:
+    bukkit:
+    - []
+    chat:
+    - []
+    list:
+    - []
+    me:
+    - []
+    minecraft:
+    - []
+    msg:
+    - []
+    pl:
+    - []
+    plugins:
+    - []
+    skin:
+    - []
+    teammsg:
+    - []
+    tell:
+    - []
+    tm:
+    - []
+    trigger:
+    - []
+    version:
+    - []
+    ver:
+    - []
+    w:
+    - []
+    about:
+    - []
+    bukkit:
+    - []
+    icanhasbukkit:
+    - []
+    help:
+    - []
+    skins:
+    - []
+    '?':
+    - []
+    minecraft:help:
+    - []
+    minecraft:list:
+    - []
+    minecraft:me:
+    - []
+    minecraft:msg:
+    - []
+    minecraft:teammsg:
+    - []
+    minecraft:tell:
+    - []
+    minecraft:tm:
+    - []
+    minecraft:trigger:
+    - []
+    minecraft:w:
+    - []
+    bukkit:?:
+    - []
+    bukkit:help:
+    - []
+    bukkit:pl:
+    - []
+    bukkit:plugins:
+    - []
+    bukkit:ver:
+    - []
+    bukkit:version:
+    - []
+    bukkit:about:
+    - []
+    chatdisable:chat:
+    - []
+    skinsrestorer:skin:
+    - []
+    skinsrestorer:skins:
+    - []
+    viaver:
+    - []
+    viaversion:
+    - []
+    vvbukkit:
+    - []
+    viaversion:viaver:
+    - []
+    viaversion:viaversion:
+    - []
+    viaversion:vvbukkit:
+    - []
+    unexpectedspawn:
+    - []
+    uns:
+    - []
+    unexpectedspawn:unexpectedspawn:
+    - []
+    unexpectedspawn:uns:
+    - []
+    nobreak:
+    - []
+    nobreak:nobreak:
+    - []

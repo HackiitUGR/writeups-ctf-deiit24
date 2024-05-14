@@ -1,0 +1,11 @@
+kick-msg: '&cYour name contains a banned character!'
+banned-words:
+    - '$'
+    - '\'
+    - '/'
+    - ':'
+    - '{'
+    - '}'
+    - '"'
+    - '%'
+    - '-'

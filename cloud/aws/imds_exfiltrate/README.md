@@ -1,0 +1,6 @@
+- Titulo: EC2 and S3: true love
+- Dificultad: Fácil/Medio
+- Descripción del reto: EC2 y S3 son los servicios más comunes de AWS. Aprende a utilizar estos dos servicios y a encontrar una de las fallas más comunes de seguridad de AWS en este CTF!
+- Pistas: 
+- Ficheros o url del reto: IP del EC2: 44.220.169.4
+- Ya desplegado en la nube de AWS

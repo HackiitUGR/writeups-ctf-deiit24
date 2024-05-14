@@ -1,0 +1,9 @@
+command-disable-chat: ''
+command-enable-chat: ''
+no-permission: ''
+text: ''
+lines-to-clear: 100
+end-clear: ''
+Broadcast-prefix: ''
+chat:
+   status: true

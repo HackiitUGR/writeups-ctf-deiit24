@@ -1,0 +1,52 @@
+import Crypto.Cipher.AES as aes ; import config, os, base64
+#¡\bin\usr\python
+
+# Key
+key = os.urandom(16)
+print(key)
+
+# Sample function
+def encrypt(msg, key):
+	from Crypto.Cipher import AES
+	cipher = AES.new(key, AES.MODE_CBC)
+	cipher.encrypt(msg)
+
+
+def master():
+
+	# Vars
+	msg = ''
+	cifrado = aes.new(key, aes.MODE_OFB)
+	print(cifrado.block_size)
+
+	# Main logic :)
+	with open('output.text', 'w+') as fichero:
+		msg = 'Super secret cipher text, thats nobody are gonna never read it:'
+
+		#Encrypt messagge
+		print(len(msg+config.FLAG))
+
+	msg = msg + config.FLAG
+	texto = cifrado.encrypt(msg.encode());
+	texto = bytes(a ^ b for a, b in zip(msg.encode(), key*6))
+
+	encrypt(texto, key);
+
+	# Guardar texto en fichero
+	open('output.text', 'rb+').write(texto)
+	fichero.close();
+
+	print('Texto cifrado con extio')
+	print(texto)
+
+
+
+if __name__ == '__main__':
+	# Start master function
+	print('Starting script.')
+master()
+
+
+# TODO: Fix minor erors
+
+
